@@ -15,27 +15,67 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtIndice: UITextField!
     @IBOutlet weak var lblNotaFinal: UILabel!
     
-    var listaExamenes:[Examen] = [];
-        var indice = 0;
-        var nota = 0.0;
+    var examenes: [Examen] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        txtIndice.delegate = self
+        txtPreguntasAcertadas.delegate = self
+        txtPreguntasTotales.delegate = self
+        
+        txtIndice.keyboardType = .numberPad
+        txtPreguntasAcertadas.keyboardType = .numberPad
+        txtPreguntasTotales.keyboardType = .numberPad
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func btnInsertarExamen(_ sender: Any) {
-        nota = Double((Float(txtPreguntasAcertadas.text!)!)/(Float(txtPreguntasTotales.text!)!)*10)
-                
-                let nuevoExamen: Examen = Examen(nombre: txtNombre.text!, preguntasTotales: Int(txtPreguntasTotales.text!)!, acertadas: Int(txtPreguntasAcertadas.text!)!, notaFinal: Float(nota));
-                listaExamenes.append(nuevoExamen);
-        self.view.makeToast("Examen de \(nuevoExamen.nombre) agregado.")
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacement String: String) -> Bool {
+        
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: String)
+        return allowedCharacters.isSuperset(of: characterSet)
         
     }
+    
+    func alertError(titulo: String, mensaje: String){
+        let alert = UIAlertController( title: titulo, message:
+                                        mensaje, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func btnInsertarExamen(_ sender: Any) {
+        
+        let nombre = txtNombre.text!
+        let totalP = txtPreguntasTotales.text!
+        let totalA = txtPreguntasAcertadas.text!
+        if nombre.isEmpty || totalP.isEmpty || totalA.isEmpty {
+            alertError(titulo: "ERROR", mensaje: "Faltan datos para crear el examen")
+        }else{
+            examenes.append(Examen(nombre: nombre, totalPreguntas:
+                                    Int(totalP)!, totalAcertadas: Int (totalA)!))
+            alertError(titulo: "Perfecto!!", mensaje: "Examen de \(nombre)")
+            
+            txtNombre.text = ""
+            txtPreguntasTotales.text = ""
+            txtPreguntasAcertadas.text = ""
+        }
+    }
     @IBAction func btnVerExamen(_ sender: Any) {
-        indice = Int(txtIndice.text!)!;
-                
-                lblNotaFinal.text = "Alumno: \(listaExamenes[indice].nombre), \n\n Preguntas totales: \(listaExamenes[indice].preguntasTotales), \n\n Acertadas: \(listaExamenes[indice].acertadas). \n \n NOTA FINAL: \(listaExamenes[indice].notaFinal)"
+        let indice = txtIndice.text!
+        if indice.isEmpty{
+            alertError(titulo: "ERROR", mensaje: "No tengo nada que buscar")
+        }else{
+            if Int(indice)! < 1 || Int(indice)! > examenes.count{
+                alertError(titulo: "ERROR", mensaje: "El examen no existe")
+            }else{
+                lblNotaFinal.text = examenes[Int(indice)! -
+                                                1].toString()
+            }
+        }
     }
     
 }

@@ -6,11 +6,19 @@
 //
 
 import Foundation
-
-struct Examen  {
-    var nombre: String;
-    var preguntasTotales: Int;
-    var acertadas: Int;
-    var notaFinal: Float;
-    
+class Examen{
+    var nombre: String
+    var totalPreguntas: Int
+    var totalAcertadas: Int
+    var notaFinal: Float
+    init(nombre: String, totalPreguntas: Int, totalAcertadas: Int) {
+        self.nombre = nombre
+        self.totalPreguntas = totalPreguntas
+        self.totalAcertadas = totalAcertadas
+        self.notaFinal = Float(totalAcertadas) * 10 /
+            Float(totalPreguntas)
+    }
+    func toString() -> String{
+        return "Nombre: \(nombre) \nTotal Preguntas: \(totalPreguntas)\nTotalAcertadas: \(totalAcertadas)\nNota Final:\(notaFinal)"
+    }
 }
