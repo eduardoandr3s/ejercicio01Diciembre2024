@@ -21,10 +21,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        txtIndice.delegate = self
-        txtPreguntasAcertadas.delegate = self
-        txtPreguntasTotales.delegate = self
-        
         txtIndice.keyboardType = .numberPad
         txtPreguntasAcertadas.keyboardType = .numberPad
         txtPreguntasTotales.keyboardType = .numberPad
