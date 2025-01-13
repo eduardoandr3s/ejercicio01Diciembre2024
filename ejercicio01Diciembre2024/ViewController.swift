@@ -74,6 +74,21 @@ class ViewController: UIViewController {
         }
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let indice = txtIndice!;
+        if(identifier == "MOSTRAR"){
+            if (txtIndice.text!.isEmpty){
+                self.alertError(titulo: "ERROR!!", mensaje: "Campo índice vacío.")
+                return false;
+            }
+            if (examenes[Int(indice) - 1] == nil){
+                self.alertError(titulo: "ERROR!!", mensaje: "Examen no existe!!")
+                return false
+            }
+        }
+        return true;
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let indice = txtIndice.text!;
         if(segue.identifier=="MOSTRAR"){
