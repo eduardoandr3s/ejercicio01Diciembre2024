@@ -74,5 +74,19 @@ class ViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indice = txtIndice.text!;
+        if(segue.identifier=="MOSTRAR"){
+            let examenAEnviar = examenes[Int(indice)! - 1];
+            
+            let nuevaVentana = segue.destination as! SecondViewController;
+            
+            nuevaVentana.examenRecibido = examenAEnviar;
+         
+            
+        }
+        
+    }
+    
 }
 
