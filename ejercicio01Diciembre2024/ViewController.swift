@@ -8,20 +8,27 @@
 import UIKit
 import Toast
 
-class ViewController: UIViewController {
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+  
+    
     @IBOutlet weak var txtNombre: UITextField!
     @IBOutlet weak var txtPreguntasTotales: UITextField!
     @IBOutlet weak var txtPreguntasAcertadas: UITextField!
-    @IBOutlet weak var txtIndice: UITextField!
-    @IBOutlet weak var lblNotaFinal: UILabel!
     
-    var examenes: [Examen] = []
+    
+    @IBOutlet weak var tabla: UITableView!
+    
+    var examenes: [Examen]!;
+    var examen: Examen!;
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        examenes = [];
+        tabla.delegate = self;
+        tabla.dataSource = self;
         
-        txtIndice.keyboardType = .numberPad
         txtPreguntasAcertadas.keyboardType = .numberPad
         txtPreguntasTotales.keyboardType = .numberPad
         // Do any additional setup after loading the view.
@@ -55,53 +62,63 @@ class ViewController: UIViewController {
                                     Int(totalP)!, totalAcertadas: Int (totalA)!))
             alertError(titulo: "Perfecto!!", mensaje: "Examen de \(nombre)")
             
+            tabla.reloadData();
+            
             txtNombre.text = ""
             txtPreguntasTotales.text = ""
             txtPreguntasAcertadas.text = ""
         }
     }
-    @IBAction func btnVerExamen(_ sender: Any) {
-        let indice = txtIndice.text!
-        if indice.isEmpty{
-            alertError(titulo: "ERROR", mensaje: "No tengo nada que buscar")
-        }else{
-            if Int(indice)! < 1 || Int(indice)! > examenes.count{
-                alertError(titulo: "ERROR", mensaje: "El examen no existe")
-            }else{
-                lblNotaFinal.text = examenes[Int(indice)! -
-                                                1].toString()
-            }
-        }
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        let indice = txtIndice!;
-        if(identifier == "MOSTRAR"){
-            if (txtIndice.text!.isEmpty){
-                self.alertError(titulo: "ERROR!!", mensaje: "Campo índice vacío.")
-                return false;
-            }
-            if (examenes[Int(indice) - 1] == nil){
-                self.alertError(titulo: "ERROR!!", mensaje: "Examen no existe!!")
-                return false
-            }
-        }
-        return true;
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let indice = txtIndice.text!;
         if(segue.identifier=="MOSTRAR"){
-            let examenAEnviar = examenes[Int(indice)! - 1];
+           
             
             let nuevaVentana = segue.destination as! SecondViewController;
             
-            nuevaVentana.examenRecibido = examenAEnviar;
+            let indiceExamen = tabla.indexPathForSelectedRow!.row;
+            
+            let examenSeleccionado = examenes[indiceExamen];
+            
+            nuevaVentana.examenRecibido = examenSeleccionado;
          
             
         }
+        return
+    }
+    
+    
+    //CONSEGUIR LA REFERENCIA A LA NUEVA VENTANA
+   // let nuevaVentana = segue.destination as! MostarDatos;
+    
+    
+    //QUE ELEMENTO DE LA LISTA HA SIDO SELECCIONADO
+    //let indiceTarea = tablaTareas.indexPathForSelectedRow!.row;
+   
+    //ENCONTRAR LA TAREA EN EL ARRAY
+    //let tareaSeleccionada = listaTareas[indiceTarea];
+    
+    //EN LA NUEVA VENTANA PASARLE LA TAREA
+   // nuevaVentana.tarea = tareaSeleccionada;
+    
+    // TABLA VIEW
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        examenes.count;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let celda = tableView.dequeueReusableCell(withIdentifier: "CELDA", for: indexPath) as! CeldaTableViewCell;
+        examen = examenes[indexPath.row];
+        celda.lblNombre.text = examen.nombre;
+        celda.lblPreguntas.text = String(examen.totalPreguntas);
+        celda.lblAcertadas.text = String(examen.totalAcertadas);
+        celda.lblNota.text = String(examen.notaFinal);
+        
+        return celda;
         
     }
+    
     
 }
 
