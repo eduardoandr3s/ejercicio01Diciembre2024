@@ -16,6 +16,7 @@
 		2525BAB62D0AEB8000EFD28A /* Examen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2525BAB52D0AEB8000EFD28A /* Examen.swift */; };
 		2525BABB2D0AECE200EFD28A /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 2525BABA2D0AECE200EFD28A /* Toast */; };
 		CA0D9D112D3E426F00CA698D /* CeldaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0D9D102D3E426F00CA698D /* CeldaTableViewCell.swift */; };
+		CA6EA01E2D43909700A0CDCF /* GestorDatos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6EA01D2D43909700A0CDCF /* GestorDatos.swift */; };
 		CAC6EE932D3516F900CF8B46 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6EE922D3516F900CF8B46 /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		2525BAAD2D0ADFF700EFD28A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2525BAB52D0AEB8000EFD28A /* Examen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examen.swift; sourceTree = "<group>"; };
 		CA0D9D102D3E426F00CA698D /* CeldaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CeldaTableViewCell.swift; sourceTree = "<group>"; };
+		CA6EA01D2D43909700A0CDCF /* GestorDatos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestorDatos.swift; sourceTree = "<group>"; };
 		CAC6EE922D3516F900CF8B46 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +66,7 @@
 		2525BA9E2D0ADFF600EFD28A /* ejercicio01Diciembre2024 */ = {
 			isa = PBXGroup;
 			children = (
+				CA6EA01C2D43908100A0CDCF /* tools */,
 				CAC6EE912D3516C700CF8B46 /* controllers */,
 				2525BAB42D0AEB6400EFD28A /* models */,
 				2525BA9F2D0ADFF600EFD28A /* AppDelegate.swift */,
@@ -83,6 +86,14 @@
 				2525BAB52D0AEB8000EFD28A /* Examen.swift */,
 			);
 			path = models;
+			sourceTree = "<group>";
+		};
+		CA6EA01C2D43908100A0CDCF /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				CA6EA01D2D43909700A0CDCF /* GestorDatos.swift */,
+			);
+			path = tools;
 			sourceTree = "<group>";
 		};
 		CAC6EE912D3516C700CF8B46 /* controllers */ = {
@@ -175,6 +186,7 @@
 				2525BAB62D0AEB8000EFD28A /* Examen.swift in Sources */,
 				2525BAA02D0ADFF600EFD28A /* AppDelegate.swift in Sources */,
 				CAC6EE932D3516F900CF8B46 /* SecondViewController.swift in Sources */,
+				CA6EA01E2D43909700A0CDCF /* GestorDatos.swift in Sources */,
 				2525BAA22D0ADFF600EFD28A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

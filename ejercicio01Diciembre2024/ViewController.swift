@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var examenes: [Examen]!;
     var examen: Examen!;
-    
+    var gestorDatos: GestorDatos!;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         txtPreguntasAcertadas.keyboardType = .numberPad
         txtPreguntasTotales.keyboardType = .numberPad
         // Do any additional setup after loading the view.
+        gestorDatos = GestorDatos();
+        
+        
+            examenes = gestorDatos.leer(clave: "LISTA");
+            tabla.reloadData();
+        
+        
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacement String: String) -> Bool {
@@ -62,6 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                     Int(totalP)!, totalAcertadas: Int (totalA)!))
             alertError(titulo: "Perfecto!!", mensaje: "Examen de \(nombre)")
             
+            gestorDatos.guardar(dato: examenes, clave: "LISTA")
             tabla.reloadData();
             
             txtNombre.text = ""
@@ -69,6 +77,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             txtPreguntasAcertadas.text = ""
         }
     }
+    @IBAction func btnVaciarRegistro(_ sender: Any) {
+        
+        gestorDatos.vaciar(clave: "LISTA")
+        examenes = [];
+        tabla.reloadData();
+
+    }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier=="MOSTRAR"){

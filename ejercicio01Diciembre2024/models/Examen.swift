@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class Examen{
+class Examen: Codable{
     var nombre: String
     var totalPreguntas: Int
     var totalAcertadas: Int
