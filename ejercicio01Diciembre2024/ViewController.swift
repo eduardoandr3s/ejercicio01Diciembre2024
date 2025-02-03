@@ -7,9 +7,7 @@
 
 import UIKit
 import Toast
-
-
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+        class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
     
     @IBOutlet weak var txtNombre: UITextField!
