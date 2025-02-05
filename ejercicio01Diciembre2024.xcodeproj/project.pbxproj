@@ -16,7 +16,11 @@
 		2525BAB62D0AEB8000EFD28A /* Examen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2525BAB52D0AEB8000EFD28A /* Examen.swift */; };
 		2525BABB2D0AECE200EFD28A /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 2525BABA2D0AECE200EFD28A /* Toast */; };
 		CA0D9D112D3E426F00CA698D /* CeldaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0D9D102D3E426F00CA698D /* CeldaTableViewCell.swift */; };
+		CA29003F2D53757000EFC01E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CA29003E2D53757000EFC01E /* FirebaseAuth */; };
+		CA2900412D53757000EFC01E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CA2900402D53757000EFC01E /* FirebaseDatabase */; };
+		CA2900432D53757000EFC01E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CA2900422D53757000EFC01E /* FirebaseFirestore */; };
 		CA6EA01E2D43909700A0CDCF /* GestorDatos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6EA01D2D43909700A0CDCF /* GestorDatos.swift */; };
+		CAA31AA02D53AAF6007A15FC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA31A9F2D53AAF6007A15FC /* LoginViewController.swift */; };
 		CAC6EE932D3516F900CF8B46 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6EE922D3516F900CF8B46 /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +36,7 @@
 		2525BAB52D0AEB8000EFD28A /* Examen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examen.swift; sourceTree = "<group>"; };
 		CA0D9D102D3E426F00CA698D /* CeldaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CeldaTableViewCell.swift; sourceTree = "<group>"; };
 		CA6EA01D2D43909700A0CDCF /* GestorDatos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestorDatos.swift; sourceTree = "<group>"; };
+		CAA31A9F2D53AAF6007A15FC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CAC6EE922D3516F900CF8B46 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,7 +45,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA2900412D53757000EFC01E /* FirebaseDatabase in Frameworks */,
+				CA2900432D53757000EFC01E /* FirebaseFirestore in Frameworks */,
 				2525BABB2D0AECE200EFD28A /* Toast in Frameworks */,
+				CA29003F2D53757000EFC01E /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +109,7 @@
 			children = (
 				CAC6EE922D3516F900CF8B46 /* SecondViewController.swift */,
 				CA0D9D102D3E426F00CA698D /* CeldaTableViewCell.swift */,
+				CAA31A9F2D53AAF6007A15FC /* LoginViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -123,6 +132,9 @@
 			name = ejercicio01Diciembre2024;
 			packageProductDependencies = (
 				2525BABA2D0AECE200EFD28A /* Toast */,
+				CA29003E2D53757000EFC01E /* FirebaseAuth */,
+				CA2900402D53757000EFC01E /* FirebaseDatabase */,
+				CA2900422D53757000EFC01E /* FirebaseFirestore */,
 			);
 			productName = ejercicio01Diciembre2024;
 			productReference = 2525BA9C2D0ADFF600EFD28A /* ejercicio01Diciembre2024.app */;
@@ -153,6 +165,7 @@
 			mainGroup = 2525BA932D0ADFF600EFD28A;
 			packageReferences = (
 				2525BAB92D0AECE200EFD28A /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				CA29003D2D53757000EFC01E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 2525BA9D2D0ADFF600EFD28A /* Products */;
 			projectDirPath = "";
@@ -185,6 +198,7 @@
 				CA0D9D112D3E426F00CA698D /* CeldaTableViewCell.swift in Sources */,
 				2525BAB62D0AEB8000EFD28A /* Examen.swift in Sources */,
 				2525BAA02D0ADFF600EFD28A /* AppDelegate.swift in Sources */,
+				CAA31AA02D53AAF6007A15FC /* LoginViewController.swift in Sources */,
 				CAC6EE932D3516F900CF8B46 /* SecondViewController.swift in Sources */,
 				CA6EA01E2D43909700A0CDCF /* GestorDatos.swift in Sources */,
 				2525BAA22D0ADFF600EFD28A /* SceneDelegate.swift in Sources */,
@@ -399,6 +413,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		CA29003D2D53757000EFC01E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 8.15.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -406,6 +428,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2525BAB92D0AECE200EFD28A /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		CA29003E2D53757000EFC01E /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA29003D2D53757000EFC01E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		CA2900402D53757000EFC01E /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA29003D2D53757000EFC01E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		CA2900422D53757000EFC01E /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA29003D2D53757000EFC01E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
