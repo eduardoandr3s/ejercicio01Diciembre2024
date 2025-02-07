@@ -7,6 +7,9 @@
 
 import UIKit
 import Toast
+import FirebaseAuth
+import FirebaseFirestore
+
         class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
     
@@ -19,7 +22,10 @@ import Toast
     
     var examenes: [Examen]!;
     var examen: Examen!;
-    var gestorDatos: GestorDatos!;
+   // var gestorDatos: GestorDatos!;
+            
+            var dataBase: Firestore!;
+            var identifier:String!;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +36,15 @@ import Toast
         txtPreguntasAcertadas.keyboardType = .numberPad
         txtPreguntasTotales.keyboardType = .numberPad
         // Do any additional setup after loading the view.
-        gestorDatos = GestorDatos();
+       // gestorDatos = GestorDatos();
         
         
-            examenes = gestorDatos.leer(clave: "LISTA");
+          //  examenes = gestorDatos.leer(clave: "LISTA");
             tabla.reloadData();
-        
+        let user = Auth.auth().currentUser;
+        dataBase = Firestore.firestore();
+        identifier = user?.email;
+        loadExamUsers();
         
     }
     
@@ -65,9 +74,24 @@ import Toast
         }else{
             examenes.append(Examen(nombre: nombre, totalPreguntas:
                                     Int(totalP)!, totalAcertadas: Int (totalA)!))
-            alertError(titulo: "Perfecto!!", mensaje: "Examen de \(nombre)")
+            let listaCambiada = examenes.map{$0.convertDictionary()}
             
-            gestorDatos.guardar(dato: examenes, clave: "LISTA")
+           
+            
+            dataBase.collection("usuarios").document(identifier).setData(["examenes": listaCambiada]) {error in
+                if let error = error {print("Error insertando")}
+                else{
+                    print("Insertado con éxito el examen")
+                }
+            }
+            
+            
+            
+            
+            
+            alertError(titulo: "Perfecto!!", mensaje: "Examen de \(nombre) agregado con éxito!!")
+            
+          //  gestorDatos.guardar(dato: examenes, clave: "LISTA")
             tabla.reloadData();
             
             txtNombre.text = ""
@@ -77,12 +101,47 @@ import Toast
     }
     @IBAction func btnVaciarRegistro(_ sender: Any) {
         
-        gestorDatos.vaciar(clave: "LISTA")
+   //     gestorDatos.vaciar(clave: "LISTA")
+        dataBase.collection("usuarios").document(identifier).delete();
         examenes = [];
         tabla.reloadData();
 
     }
-    
+            func loadExamUsers(){
+                dataBase.collection("usuarios").document(identifier).getDocument{(document, error) in if let error = error{
+                    print("Error leyendo desde la Database")
+                    return
+                }
+                guard let document = document, document.exists, let data = document.data() else{
+                    
+                        print("Tu Database esta vacía!")
+                    return;
+                    
+                }
+                
+                if let lista = data["examenes"] as? [[String : Any]]{
+                    self.examenes = lista.map{dict in return Examen(
+                        nombre: dict["nombre"] as? String ?? "", totalPreguntas: dict["totalPreguntas"] as? Int ?? 0, totalAcertadas: dict["totalAcertadas"] as? Int ?? 0
+                    )}
+                    
+                    DispatchQueue.main.async {
+                        self.tabla.reloadData();
+                    }
+                }
+                
+                }
+            }
+            
+            @IBAction func logout(_ sender: Any) {
+                do{
+                    try Auth.auth().signOut()
+                    self.navigationController?.popViewController(animated: true)
+                    
+                }catch{
+                    //Error
+                }
+            }
+            
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,6 +160,8 @@ import Toast
         }
         return
     }
+            
+            
     
     
     //CONSEGUIR LA REFERENCIA A LA NUEVA VENTANA

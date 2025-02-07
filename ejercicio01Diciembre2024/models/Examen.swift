@@ -18,6 +18,17 @@ class Examen: Codable{
         self.notaFinal = Float(totalAcertadas) * 10 /
             Float(totalPreguntas)
     }
+    
+    func convertDictionary() -> [String: Any]{
+        return [
+            "nombre": nombre,
+            "totalPreguntas" : totalPreguntas,
+            "totalAcertadas": totalAcertadas,
+            "notaFinal": notaFinal
+        ]
+    }
+    
+    
     func toString() -> String{
         return "Nombre: \(nombre) \nTotal Preguntas: \(totalPreguntas)\nTotalAcertadas: \(totalAcertadas)\nNota Final:\(notaFinal)"
     }
